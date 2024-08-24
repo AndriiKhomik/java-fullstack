@@ -19,7 +19,7 @@
 FROM ubuntu:20.04
 
 # Set the Tomcat version
-ENV TOMCAT_VERSION 9.0.93
+ENV TOMCAT_VERSION=9.0.93
 
 # Install dependencies
 RUN apt-get update && \
@@ -34,8 +34,8 @@ RUN wget -O /tmp/tomcat.tar.gz https://dlcdn.apache.org/tomcat/tomcat-9/v${TOMCA
     mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat
 
 # Set environment variables
-ENV CATALINA_HOME /opt/tomcat
-ENV PATH $CATALINA_HOME/bin:$PATH
+ENV CATALINA_HOME=/opt/tomcat
+ENV PATH=$CATALINA_HOME/bin:$PATH
 
 # Expose Tomcat port
 EXPOSE 8080
