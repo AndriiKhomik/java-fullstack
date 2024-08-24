@@ -11,4 +11,4 @@ COPY --from=build /usr/app/build/libs/class_schedule.war .
 
 EXPOSE 8080
 
-CMD ["/app/entry_point.sh"]
+CMD ["catalina.sh", "run"]
