@@ -1,11 +1,13 @@
-FROM maven:3.8.6-openjdk-11 AS build
+FROM gradle:6.7-jdk14-openj9 AS build
 WORKDIR /usr/app/
 COPY . .
 
-RUN mvn clean package
+RUN gradle war --stacktrace
+
+WORKDIR /usr/local/tomcat/webapps/
 
 FROM tomcat:9.0.50-jdk11
-COPY --from=build /usr/app/target/class_schedule.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build /usr/app/build/libs/class_schedule.war .
 
 EXPOSE 8080
 
