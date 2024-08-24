@@ -7,4 +7,6 @@ COPY package-lock.json /code/package-lock.json
 RUN npm ci
 COPY . /code
 
+EXPOSE 3000
+
 CMD [ "npm", "start" ]

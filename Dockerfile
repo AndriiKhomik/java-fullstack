@@ -1,6 +1,16 @@
-FROM tomcat:9.0.50-jdk11
+FROM gradle:6.7-jdk14-openj9 AS build
+WORKDIR /usr/app/
+COPY build.gradle settings.gradle system.properties pre-commit.gradle liquibase.gradle gradlew /usr/app/
+COPY . /usr/app/
+COPY config  ./config
+COPY src  ./src
 
-WORKDIR /app
+RUN gradle war --stacktrace
+
+WORKDIR /usr/local/tomcat/webapps
+
+FROM tomcat:9.0.50-jdk11
+COPY --from=build /usr/app/build/class_schedule.war .
 
 EXPOSE 8080
 
