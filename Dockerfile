@@ -1,16 +1,11 @@
 FROM gradle:6.7-jdk14-openj9 AS build
 WORKDIR /usr/app/
-COPY build.gradle settings.gradle system.properties pre-commit.gradle liquibase.gradle gradlew /usr/app/
-COPY . /usr/app/
-COPY config  ./config
-COPY src  ./src
+COPY . .
 
-RUN gradle war --stacktrace
-
-WORKDIR /usr/local/tomcat/webapps
+RUN mvn clean package
 
 FROM tomcat:9.0.50-jdk11
-COPY --from=build /usr/app/build/class_schedule.war .
+COPY --from=build /usr/app/target/class_schedule.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
