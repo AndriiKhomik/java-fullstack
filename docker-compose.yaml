@@ -4,6 +4,7 @@ services:
   postgres:
     image: postgres:15
     container_name: postgres
+    restart: always
     environment:
       POSTGRES_USER: your_username
       POSTGRES_PASSWORD: your_password
@@ -22,8 +23,12 @@ services:
       - redis_data:/data
 
   mongodb:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - "27017:27017"
     volumes:
