@@ -19,7 +19,7 @@
 FROM ubuntu:20.04
 
 # Set the Tomcat version
-ENV TOMCAT_VERSION 9.0.50
+ENV TOMCAT_VERSION 9.0.93
 
 # Install dependencies
 RUN apt-get update && \
