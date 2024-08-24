@@ -44,6 +44,9 @@ services:
       - postgres
       - mongodb
       - redis
+    environment:
+      MONGO_LOCAL_CURRENT_DATABASE: schedules
+      DEFAULT_SERVER_CLUSTER: mongodb
 
   frontend:
     build:

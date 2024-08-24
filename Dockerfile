@@ -2,6 +2,8 @@ FROM gradle:7.2-jdk11 AS build
 WORKDIR /app
 
 COPY . .
+COPY config ./config
+COPY src ./src
 RUN gradle build -x test --no-daemon
 
 
