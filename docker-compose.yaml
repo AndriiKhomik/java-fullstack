@@ -60,10 +60,11 @@ services:
       - backend
 
   nginx:
+    build:
+      context: ./nginx
     depends_on:
       - frontend
       - backend
-    image: ./nginx
     container_name: nginx
     restart: always
     ports:
