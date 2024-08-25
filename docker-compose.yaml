@@ -59,6 +59,16 @@ services:
     depends_on:
       - backend
 
+  nginx:
+    depends_on:
+      - frontend
+      - backend
+    image: ./nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+
 volumes:
   mongodb_data:
   redis_data:
