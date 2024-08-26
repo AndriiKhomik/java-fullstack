@@ -6,9 +6,13 @@ services:
     container_name: postgres
     restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: postgres_db
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_DB_FILE: /run/secrets/postgres_db
+    secrets:
+      - postgres_user
+      - postgres_password
+      - postgres_db
     ports:
       - "5432:5432"
     volumes:
@@ -27,8 +31,11 @@ services:
     container_name: mongodb
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_init_root_username
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_init_root_password
+    secrets:
+      - mongo_init_root_username
+      - mongo_init_root_password
     ports:
       - "27017:27017"
     volumes:
@@ -53,7 +60,7 @@ services:
       context: ./frontend
     container_name: frontend
     environment:
-      - REACT_APP_API_BASE_URL=http://localhost:8080/api
+      - REACT_APP_API_BASE_URL=http://192.168.56.106:8080/api
     ports:
       - "3000:3000"
     depends_on:
@@ -69,6 +76,18 @@ services:
     restart: always
     ports:
       - "80:80"
+
+secrets:
+  postgres_user:
+    file: postgres_user.txt
+  postgres_password:
+    file: postgres_password.txt
+  postgres_db:
+    file: postgres_db.txt
+  mongo_init_root_username:
+    file: mongo_init_root_username.txt
+  mongo_init_root_password:
+    file: mongo_init_root_password.txt
 
 volumes:
   mongodb_data:
