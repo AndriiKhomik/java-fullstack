@@ -21,7 +21,6 @@ RUN echo "export POSTGRES_USER=${POSTGRES_USER}" >> variables.sh \
     && echo "export POSTGRES_DB=${POSTGRES_DB}" >> variables.sh 
 
 # Make the scripts executable
-RUN chmod +x entry_point.sh
 RUN chmod +x scripts/pgsql_restore.sh
 
 RUN gradle build -x test
