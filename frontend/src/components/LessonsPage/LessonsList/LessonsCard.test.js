@@ -13,7 +13,7 @@ const props = {
         grouped: true,
         hours: 2,
         lessonType: 'LABORATORY',
-        linkToMeeting: 'http://localhost:3000/admin/lessons',
+        linkToMeeting: 'http://192.168.56.107:3000/admin/lessons',
         subjectForSite: 'Web-дизайн',
         teacher: {
             id: 1,
