@@ -5,17 +5,17 @@
 #export PATH=$PATH:$pathA
 
 #write your password
-PGPASSWORD=root
+PGPASSWORD=password
 export PGPASSWORD
 
 #change the path to the file from which will be made restore
-pathB=backup/
+pathB=/app/
 #write this on the command line as the first parameter
-filename=$1
+filename=data.dump
 #write your user
-dbUser=user
+dbUser=$(< /run/secrets/postgres_user)
 #write your database
-database=postgres_db
+database=$(< /run/secrets/postgres_db)
 #write your host
 host=postgres
 #write your port
