@@ -18,7 +18,8 @@ pipeline {
                 script {
                     // Set custom display name
                     // def triggerUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').userId
-                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${BRANCH}"
+                    def branch = env.GIT_BRANCH
+                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${branch}"
                 }
             }
         }
