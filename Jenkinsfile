@@ -16,7 +16,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout source code from Github
-                git branch: 'jenkins', url: "${env.GITHUB_REPO}"
+                git branch: 'dev', url: "${env.GITHUB_REPO}"
             }
         }
         stage('Build') {
