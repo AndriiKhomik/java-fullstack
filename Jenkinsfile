@@ -3,7 +3,6 @@ pipeline {
 
     triggers {
         // Run the pipeline daily at midnight
-        cron('H H * * *')
     }
 
     environment {
