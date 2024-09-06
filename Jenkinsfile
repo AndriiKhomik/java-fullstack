@@ -5,7 +5,7 @@ pipeline {
         // Run the pipeline daily at midnight
         cron('H H * * *')
         // Trigger the pipeline on changes in the GitHub repository
-        pollSCM('* * * * *')
+        // pollSCM('* * * * *')
     }
 
     environment {
@@ -26,6 +26,12 @@ pipeline {
             steps {
                 // Checkout source code from Github
                 git branch: 'dev', url: "${env.GITHUB_REPO}"
+            }
+        }
+        stage('Test') {
+            steps {
+                // Test application
+                echo 'Testing...'
             }
         }
         stage('Build') {
