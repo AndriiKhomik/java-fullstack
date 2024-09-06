@@ -18,7 +18,7 @@ pipeline {
                 script {
                     // Set custom display name
                     def branch = env.GIT_BRANCH
-                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${branch}, triggered by ${BUILD_USER}"
+                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${branch}, triggered by ${env.BUILD_USER}"
                 }
             }
         }
