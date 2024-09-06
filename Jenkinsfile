@@ -1,10 +1,6 @@
 pipeline {
     agent { label 'agent1' }
 
-    triggers {
-        // Run the pipeline daily at midnight
-    }
-
     environment {
         GITHUB_REPO = 'https://github.com/AndriiKhomik/java-fullstack.git'
     }
