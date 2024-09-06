@@ -1,13 +1,6 @@
 pipeline {
     agent { label 'agent1' }
 
-    triggers {
-        // Run the pipeline daily at midnight
-        cron('H H * * *')
-        // Trigger the pipeline on changes in the GitHub repository
-        pollSCM('* * * * *')
-    }
-
     environment {
         GITHUB_REPO = 'https://github.com/AndriiKhomik/java-fullstack.git'
     }
@@ -17,21 +10,27 @@ pipeline {
             steps {
                 script {
                     // Set custom display name
-                    def triggerUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').userId
-                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${BRANCH} - Triggered by ${triggerUser}"
+                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${env.GIT_BRANCH}"
                 }
             }
         }
         stage('Checkout') {
             steps {
                 // Checkout source code from Github
-                git branch: 'dev', url: "${env.GITHUB_REPO}"
+                checkout scm
+            }
+        }
+        stage('Test') {
+            steps {
+                // Test application
+                echo 'Testing...'
             }
         }
         stage('Build') {
             steps {
                 // Run build
                 echo 'Building the application...'
+                sh 'mvn clean package'
             }
         }
         stage('Deploy') {
