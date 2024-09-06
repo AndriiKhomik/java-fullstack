@@ -1,5 +1,5 @@
 pipeline {
-    agent { label: 'agent1' }
+    agent { label 'agent1' }
 
     triggers {
         // Run the pipeline daily at midnight
