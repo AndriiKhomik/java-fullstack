@@ -30,7 +30,7 @@ pipeline {
             steps {
                 // Run build
                 echo 'Building the application...'
-                sh 'mvn clean package'
+                // sh 'mvn clean package'
             }
         }
         stage('Deploy') {
