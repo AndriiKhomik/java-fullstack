@@ -13,6 +13,15 @@ pipeline {
     }
 
     stages {
+        stage('Set Build Display Name') {
+            steps {
+                script {
+                    // Set custom display name
+                    def triggerUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').userId
+                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${BRANCH} - Triggered by ${triggerUser}"
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 // Checkout source code from Github
