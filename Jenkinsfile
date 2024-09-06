@@ -18,16 +18,7 @@ pipeline {
                 script {
                     // Set custom display name
                     def branch = env.GIT_BRANCH
-                    wrap([$class: 'BuildUser']) {
-                        def user = env.BUILD_USER_ID
-                        def usr = env.BUILD_USER
-                        def first = env.BUILD_USER_FIRST_NAME
-                        def last = env.BUILD_USER_LAST_NAME
-                        def groups = env.BUILD_USER_GROUPS
-                        def email = env.BUILD_USER_EMAIL
-                        echo "${user}, ${usr}, ${first} , ${last}, ${groups}, ${email}"
-                    }
-                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${branch}, triggered by ${env.BUILD_USER}"
+                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${branch}"
                 }
             }
         }
