@@ -4,8 +4,6 @@ pipeline {
     triggers {
         // Run the pipeline daily at midnight
         cron('H H * * *')
-        // Trigger the pipeline on changes in the GitHub repository
-        // pollSCM('* * * * *')
     }
 
     environment {
