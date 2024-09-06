@@ -15,15 +15,14 @@ pipeline {
             steps {
                 script {
                     // Set custom display name
-                    def branch = env.GIT_BRANCH
-                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${branch}"
+                    currentBuild.displayName = "#${BUILD_NUMBER}, branch ${env.GIT_BRANCH}"
                 }
             }
         }
         stage('Checkout') {
             steps {
                 // Checkout source code from Github
-                git branch: 'dev', url: "${env.GITHUB_REPO}"
+                checkout scm
             }
         }
         stage('Test') {
