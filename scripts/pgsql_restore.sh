@@ -5,19 +5,19 @@
 #export PATH=$PATH:$pathA
 
 #write your password
-PGPASSWORD=root
+PGPASSWORD=password
 export PGPASSWORD
 
 #change the path to the file from which will be made restore
-pathB=../backup/
+pathB=/app/
 #write this on the command line as the first parameter
-filename=$1
+filename=data.dump
 #write your user
-dbUser=postgres
+dbUser=user
 #write your database
-database=schedule
+database=postgres_db
 #write your host
-host=localhost
+host=postgres
 #write your port
 port=5432
 
@@ -26,5 +26,5 @@ psql --set ON_ERROR_STOP=off -U $dbUser -h $host -p $port -d $database -1 -f $pa
 
 unset PGPASSWORD
 
-psql -U postgres -d schedule -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
-psql --set ON_ERROR_STOP=off -U postgres -d schedule -1 -f 2023-08-31.dump
+# psql -U postgres -d schedule -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+# psql --set ON_ERROR_STOP=off -U postgres -d schedule -1 -f 2023-08-31.dump
