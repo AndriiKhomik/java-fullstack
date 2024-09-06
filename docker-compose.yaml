@@ -60,7 +60,7 @@ services:
       context: ./frontend
     container_name: frontend
     environment:
-      - REACT_APP_API_BASE_URL=http://192.168.56.106:8080/
+      - REACT_APP_API_BASE_URL=http://192.168.56.107:8080
     ports:
       - "3000:3000"
     depends_on:

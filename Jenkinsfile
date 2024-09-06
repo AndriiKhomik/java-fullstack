@@ -1,5 +1,5 @@
 pipeline {
-    agent { label: 'agent1' }
+    agent { label 'agent1' }
 
     triggers {
         // Run the pipeline daily at midnight
@@ -16,7 +16,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout source code from Github
-                git branch: 'main', url: "${env.GITHUB_REPO}"
+                git branch: 'dev', url: "${env.GITHUB_REPO}"
             }
         }
         stage('Build') {
