@@ -31,9 +31,6 @@ pipeline {
                 // Run build
                 echo 'Building the application...'
                 // sh 'mvn clean package'
-                // frgtrhtyn
-                // febhtynuy
-                //er gtgrtyh yt
             }
         }
         stage('Deploy') {
