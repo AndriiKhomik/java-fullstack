@@ -40,7 +40,8 @@ pipeline {
             steps {
                 // Run build
                 echo 'Building the application...'
-                sh 'gradle build -x test'
+                // sh 'gradle build -x test'
+                sh 'gradle clean build -x test'
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
                         def frontendImage = docker.build("${DOCKER_IMAGE_NAME}:frontend-${BUILD_NUMBER}")
