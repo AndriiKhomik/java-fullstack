@@ -7,6 +7,7 @@ pipeline {
 
     tools {
         nodejs 'NodeJS 14.x'
+        gradle 'Gradle 7.x'
     }
 
     stages {
@@ -45,8 +46,8 @@ pipeline {
                     dir('frontend') {
                         // Run build
                         echo 'Building the frontend application...'
-                        sh 'npm install'
-                        sh 'npm run build'
+                        // sh 'npm install'
+                        // sh 'npm run build'
                         // sh "docker build -t andriikhomik/java-fullstack:frontend-${BUILD_NUMBER} -t andriikhomik/java-fullstack:frontend-latest ."
                     }
                 }
