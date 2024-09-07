@@ -4,6 +4,7 @@ pipeline {
     environment {
         GITHUB_REPO = 'https://github.com/AndriiKhomik/java-fullstack.git'
         DOCKER_CREDENTIALS_ID = '3fce2687-162f-4dc5-a65c-af0e6bac87fd'
+        DOCKER_HUB_CREDENTIALS = 'DockerHub Account'
     }
 
     tools {
@@ -39,7 +40,14 @@ pipeline {
                 // Run build
                 echo 'Building the application...'
                 sh 'gradle build -x test'
-                sh "docker build -t andriikhomik/java-fullstack:backend-${BUILD_NUMBER} -t andriikhomik/java-fullstack:backend-latest ."
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                        def frontendImage = docker.build("${DOCKER_IMAGE_NAME}:frontend-${BUILD_NUMBER}")
+                        frontendImage.push("frontend-${BUILD_NUMBER}")
+                        frontendImage.push("frontend-latest")
+                    }
+                    // sh "docker build -t andriikhomik/java-fullstack:backend-${BUILD_NUMBER} -t andriikhomik/java-fullstack:backend-latest ."
+                }
             }
         }
         stage('Build Frontend') {
