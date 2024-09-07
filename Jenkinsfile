@@ -56,19 +56,19 @@ pipeline {
 
             }
         }
-        stage('Push Docker Images') {
-            steps {
-                script {
-                    // Log in to Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
-                        sh "docker push andriikhomik/java-fullstack:backend-${BUILD_NUMBER}"
-                        sh "docker push andriikhomik/java-fullstack:backend-latest"
-                        sh "docker push andriikhomik/java-fullstack:frontend-${BUILD_NUMBER}"
-                        sh "docker push andriikhomik/java-fullstack:frontend-latest"
-                    }
-                }
-            }
-        }
+        // stage('Push Docker Images') {
+        //     steps {
+        //         script {
+        //             // Log in to Docker Hub
+        //             docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
+        //                 sh "docker push andriikhomik/java-fullstack:backend-${BUILD_NUMBER}"
+        //                 sh "docker push andriikhomik/java-fullstack:backend-latest"
+        //                 sh "docker push andriikhomik/java-fullstack:frontend-${BUILD_NUMBER}"
+        //                 sh "docker push andriikhomik/java-fullstack:frontend-latest"
+        //             }
+        //         }
+        //     }
+        // }
         stage('Deploy') {
             steps {
                 // Deploy application
