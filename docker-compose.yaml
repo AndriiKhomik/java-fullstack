@@ -42,8 +42,7 @@ services:
       - mongodb_data:/data/db
 
   backend:
-    build:
-      context: ./
+    image: andriikhomik/java-fullstack:backend-latest
     container_name: backend
     ports:
       - "8080:8080"
@@ -56,13 +55,14 @@ services:
       DEFAULT_SERVER_CLUSTER: mongodb
 
   frontend:
-    build:
-      context: ./frontend
+    image: andriikhomik/java-fullstack:frontend-latest
     container_name: frontend
     environment:
-      - REACT_APP_API_BASE_URL=http://192.168.56.107:8080
+      REACT_APP_API_BASE_URL_FILE: /run/secrets/react_apibase_url
     ports:
       - "3000:3000"
+    secrets:
+      - react_apibase_url
     depends_on:
       - backend
 
@@ -88,6 +88,8 @@ secrets:
     file: mongo_init_root_username.txt
   mongo_init_root_password:
     file: mongo_init_root_password.txt
+  react_apibase_url:
+    file: react_apibase_url.txt
 
 volumes:
   mongodb_data:
