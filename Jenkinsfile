@@ -4,7 +4,8 @@ pipeline {
     environment {
         GITHUB_REPO = 'https://github.com/AndriiKhomik/java-fullstack.git'
         DOCKER_CREDENTIALS_ID = '3fce2687-162f-4dc5-a65c-af0e6bac87fd'
-        DOCKER_HUB_CREDENTIALS = 'DockerHub Account'
+        // DOCKER_HUB_CREDENTIALS = 'DockerHub Account'
+        DOCKER_IMAGE_NAME = 'andriikhomik/java-fullstack'
     }
 
     tools {
