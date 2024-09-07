@@ -26,7 +26,19 @@ pipeline {
                 echo 'Testing...'
             }
         }
-        stage('Build') {
+        stage('Build Frontend') {
+            steps {
+                script {
+                    dir('frontend') {
+                        // Run build
+                        echo 'Building the frontend application...'
+                        sh 'npm install'
+                    }
+                }
+
+            }
+        }
+        stage('Build Backend') {
             steps {
                 // Run build
                 echo 'Building the application...'
