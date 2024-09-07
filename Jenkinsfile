@@ -40,15 +40,14 @@ pipeline {
             steps {
                 // Run build
                 echo 'Building the application...'
-                // sh 'gradle build -x test'
-                sh 'gradle clean build -x test'
+                sh 'gradle build -x test'
+                // sh 'gradle build -x test -x jacocoTestCoverageVerification'
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
-                        def frontendImage = docker.build("${DOCKER_IMAGE_NAME}:frontend-${BUILD_NUMBER}")
-                        frontendImage.push("frontend-${BUILD_NUMBER}")
-                        frontendImage.push("frontend-latest")
+                        def backaendImage = docker.build("${DOCKER_IMAGE_NAME}:backend-${BUILD_NUMBER}")
+                        backaendImage.push("backend-${BUILD_NUMBER}")
+                        backaendImage.push("backend-latest")
                     }
-                    // sh "docker build -t andriikhomik/java-fullstack:backend-${BUILD_NUMBER} -t andriikhomik/java-fullstack:backend-latest ."
                 }
             }
         }
@@ -58,27 +57,21 @@ pipeline {
                     dir('frontend') {
                         // Run build
                         echo 'Building the frontend application...'
-                        // sh 'npm install'
-                        // sh 'npm run build'
-                        sh "docker build -t andriikhomik/java-fullstack:frontend-${BUILD_NUMBER} -t andriikhomik/java-fullstack:frontend-latest ."
+                        sh 'npm install'
+                        sh 'npm run build'
+                        script {
+                            docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                                def frontendImage = docker.build("${DOCKER_IMAGE_NAME}:frontend-${BUILD_NUMBER}")
+                                frontendImage.push("frontend-${BUILD_NUMBER}")
+                                frontendImage.push("frontend-latest")
+                            }
+                        }
+                        // sh "docker build -t andriikhomik/java-fullstack:frontend-${BUILD_NUMBER} -t andriikhomik/java-fullstack:frontend-latest ."
                     }
                 }
 
             }
         }
-        // stage('Push Docker Images') {
-        //     steps {
-        //         script {
-        //             // Log in to Docker Hub
-        //             docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
-        //                 sh "docker push andriikhomik/java-fullstack:backend-${BUILD_NUMBER}"
-        //                 sh "docker push andriikhomik/java-fullstack:backend-latest"
-        //                 sh "docker push andriikhomik/java-fullstack:frontend-${BUILD_NUMBER}"
-        //                 sh "docker push andriikhomik/java-fullstack:frontend-latest"
-        //             }
-        //         }
-        //     }
-        // }
         stage('Deploy') {
             steps {
                 // Deploy application
