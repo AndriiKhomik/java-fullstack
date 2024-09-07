@@ -28,6 +28,15 @@ pipeline {
             steps {
                 // Test application
                 echo 'Testing...'
+                sh 'gradle test'
+            }
+        }
+        stage('Build Backend') {
+            steps {
+                // Run build
+                echo 'Building the application...'
+                sh 'gradle build -x test'
+                // sh "docker build -t andriikhomik/java-fullstack:backend-${BUILD_NUMBER} -t andriikhomik/java-fullstack:backend-latest ."
             }
         }
         stage('Build Frontend') {
@@ -38,16 +47,10 @@ pipeline {
                         echo 'Building the frontend application...'
                         sh 'npm install'
                         sh 'npm run build'
+                        // sh "docker build -t andriikhomik/java-fullstack:frontend-${BUILD_NUMBER} -t andriikhomik/java-fullstack:frontend-latest ."
                     }
                 }
 
-            }
-        }
-        stage('Build Backend') {
-            steps {
-                // Run build
-                echo 'Building the application...'
-                // sh 'mvn clean package'
             }
         }
         stage('Deploy') {
