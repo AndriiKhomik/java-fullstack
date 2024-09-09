@@ -70,10 +70,18 @@ pipeline {
 
             }
         }
+        stage('Cleanup') {
+            steps {
+                echo 'Cleaning up old containers and images...'
+                sh 'docker compose down'
+                sh 'docker system prune -f'
+            }
+        }
         stage('Deploy') {
             steps {
                 // Deploy application
                 echo 'Deploying the application'
+                sh 'docker compose up -d'
             }
         }
     }
