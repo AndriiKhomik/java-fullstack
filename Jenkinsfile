@@ -27,31 +27,49 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Start test environment') {
+        stage('Clean Workspace') {
             steps {
-                script {
-                    // Spin up Docker Compose test environment
-                    sh 'docker compose -f docker-compose.test.yaml up -d'
-                }
+                // Run Gradle clean
+                sh './gradlew clean'
             }
         }
-        stage('Test') {
+        stage('Build Application') {
             steps {
-                // Test application
-                echo 'Testing...'
-                sh 'sleep 30'
-                // This line is commented out because test fails - 346 tests completed, 186 failed, 9 skipped
-                sh 'gradle test --stacktrace'
+                // Build the application
+                sh './gradlew build'
             }
         }
-        stage('Cleanup Test Environment') {
+        stage('Run Tests') {
             steps {
-                script {
-                    // Tear down the test environment after tests
-                    sh 'docker compose -f docker-compose.test.yaml down'
-                }
+                // Run tests with detailed logging and stacktrace
+                sh './gradlew test --info --stacktrace'
             }
         }
+        // stage('Start test environment') {
+        //     steps {
+        //         script {
+        //             // Spin up Docker Compose test environment
+        //             sh 'docker compose -f docker-compose.test.yaml up -d'
+        //         }
+        //     }
+        // }
+        // stage('Test') {
+        //     steps {
+        //         // Test application
+        //         echo 'Testing...'
+        //         sh 'sleep 30'
+        //         // This line is commented out because test fails - 346 tests completed, 186 failed, 9 skipped
+        //         sh 'gradle test --stacktrace'
+        //     }
+        // }
+        // stage('Cleanup Test Environment') {
+        //     steps {
+        //         script {
+        //             // Tear down the test environment after tests
+        //             sh 'docker compose -f docker-compose.test.yaml down'
+        //         }
+        //     }
+        // }
         // stage('Build Backend') {
         //     steps {
         //         // Run build
