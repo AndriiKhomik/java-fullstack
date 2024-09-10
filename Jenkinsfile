@@ -27,49 +27,31 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Set Gradlew Permission') {
+        stage('Start test environment') {
             steps {
-                // Set execute permission for gradlew
-                sh 'chmod +x ./gradlew'
+                script {
+                    // Spin up Docker Compose test environment
+                    sh 'docker compose -f docker-compose.test.yaml up -d'
+                }
             }
         }
-        stage('Build Application') {
+        stage('Test') {
             steps {
-                // Build the application
-                sh './gradlew build'
+                // Test application
+                echo 'Testing...'
+                sh 'sleep 30'
+                // This line is commented out because test fails - 346 tests completed, 186 failed, 9 skipped
+                sh 'gradle test --stacktrace'
             }
         }
-        stage('Run Tests') {
+        stage('Cleanup Test Environment') {
             steps {
-                // Run tests with detailed logging and stacktrace
-                sh './gradlew test --info --stacktrace'
+                script {
+                    // Tear down the test environment after tests
+                    sh 'docker compose -f docker-compose.test.yaml down'
+                }
             }
         }
-        // stage('Start test environment') {
-        //     steps {
-        //         script {
-        //             // Spin up Docker Compose test environment
-        //             sh 'docker compose -f docker-compose.test.yaml up -d'
-        //         }
-        //     }
-        // }
-        // stage('Test') {
-        //     steps {
-        //         // Test application
-        //         echo 'Testing...'
-        //         sh 'sleep 30'
-        //         // This line is commented out because test fails - 346 tests completed, 186 failed, 9 skipped
-        //         sh 'gradle test --stacktrace'
-        //     }
-        // }
-        // stage('Cleanup Test Environment') {
-        //     steps {
-        //         script {
-        //             // Tear down the test environment after tests
-        //             sh 'docker compose -f docker-compose.test.yaml down'
-        //         }
-        //     }
-        // }
         // stage('Build Backend') {
         //     steps {
         //         // Run build
