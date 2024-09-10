@@ -41,7 +41,7 @@ pipeline {
                 echo 'Testing...'
                 sh 'sleep 30'
                 // This line is commented out because test fails - 346 tests completed, 186 failed, 9 skipped
-                sh 'gradle test'
+                sh 'gradle test --stacktrace'
             }
         }
         stage('Cleanup Test Environment') {
