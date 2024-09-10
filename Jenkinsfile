@@ -5,6 +5,13 @@ pipeline {
         GITHUB_REPO = 'https://github.com/AndriiKhomik/java-fullstack.git'
         DOCKER_CREDENTIALS_ID = '3fce2687-162f-4dc5-a65c-af0e6bac87fd'
         DOCKER_IMAGE_NAME = 'andriikhomik/java-fullstack'
+
+        POSTGRES_USER = credentials('postgres_user')
+        POSTGRES_PASSWORD = credentials('postgres_password')
+        POSTGRES_DB = credentials('postgres_db')
+        MONGO_INITDB_ROOT_USERNAME = credentials('mongo_user')
+        MONGO_INITDB_ROOT_PASSWORD = credentials('mongo_password')
+        REACT_APP_API_BASE_URL = credentials('react_apibase_url')
     }
 
     tools {
@@ -99,24 +106,12 @@ pipeline {
                 // Deploy application
                 echo 'Deploying the application'
                 script {
-                    withCredentials([
-                        string(credentialsId: 'postgres_user', variable: 'POSTGRES_USER'),
-                        string(credentialsId: 'postgres_password', variable: 'POSTGRES_PASSWORD'),
-                        string(credentialsId: 'postgres_db', variable: 'POSTGRES_DB'),
-                        string(credentialsId: 'mongo_init_root_username', variable: 'MONGO_INITDB_ROOT_USERNAME'),
-                        string(credentialsId: 'mongo_init_root_password', variable: 'MONGO_INITDB_ROOT_PASSWORD'),
-                        string(credentialsId: 'react_apibase_url', variable: 'REACT_APP_API_BASE_URL')
-                    ]) {
-                        // Pass these environment variables into Docker Compose
-                        sh """
-                        docker compose -f docker-compose.yml up -d \
-                        --build \
-                        -e POSTGRES_USER=${POSTGRES_USER} \
-                        -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
-                        -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME} \
-                        -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD} \
-                        -e REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
-                        """
+                    withCredentials([string(credentialsId: 'postgres_user', variable: 'POSTGRES_USER'),
+                                 string(credentialsId: 'postgres_password', variable: 'POSTGRES_PASSWORD'),
+                                 string(credentialsId: 'mongo_user', variable: 'MONGO_INITDB_ROOT_USERNAME'),
+                                 string(credentialsId: 'mongo_password', variable: 'MONGO_INITDB_ROOT_PASSWORD'),
+                                 string(credentialsId: 'react_app_api_base_url', variable: 'REACT_APP_API_BASE_URL')]) {
+                       sh 'docker compose -f docker-compose.yml up -d --build'
                     }
                 }
             }
