@@ -9,8 +9,8 @@ pipeline {
         POSTGRES_USER = credentials('postgres_user')
         POSTGRES_PASSWORD = credentials('postgres_password')
         POSTGRES_DB = credentials('postgres_db')
-        MONGO_INITDB_ROOT_USERNAME = credentials('mongo_user')
-        MONGO_INITDB_ROOT_PASSWORD = credentials('mongo_password')
+        MONGO_INITDB_ROOT_USERNAME = credentials('	mongo_init_root_username')
+        MONGO_INITDB_ROOT_PASSWORD = credentials('mongo_init_root_password')
         REACT_APP_API_BASE_URL = credentials('react_apibase_url')
     }
 
@@ -108,8 +108,8 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'postgres_user', variable: 'POSTGRES_USER'),
                                  string(credentialsId: 'postgres_password', variable: 'POSTGRES_PASSWORD'),
-                                 string(credentialsId: 'mongo_user', variable: 'MONGO_INITDB_ROOT_USERNAME'),
-                                 string(credentialsId: 'mongo_password', variable: 'MONGO_INITDB_ROOT_PASSWORD'),
+                                 string(credentialsId: 'mongo_init_root_username', variable: 'MONGO_INITDB_ROOT_USERNAME'),
+                                 string(credentialsId: 'mongo_init_root_password', variable: 'MONGO_INITDB_ROOT_PASSWORD'),
                                  string(credentialsId: 'react_app_api_base_url', variable: 'REACT_APP_API_BASE_URL')]) {
                        sh 'docker compose -f docker-compose.yml up -d --build'
                     }
