@@ -27,6 +27,12 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Set Gradlew Permission') {
+            steps {
+                // Set execute permission for gradlew
+                sh 'chmod +x ./gradlew'
+            }
+        }
         stage('Clean Workspace') {
             steps {
                 // Run Gradle clean
