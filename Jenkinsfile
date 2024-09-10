@@ -33,12 +33,6 @@ pipeline {
                 sh 'chmod +x ./gradlew'
             }
         }
-        stage('Clean Workspace') {
-            steps {
-                // Run Gradle clean
-                sh './gradlew clean'
-            }
-        }
         stage('Build Application') {
             steps {
                 // Build the application
