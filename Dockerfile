@@ -48,7 +48,7 @@ RUN chmod +x variables.sh
 RUN chmod +x scripts/pgsql_restore.sh
 
 # Build the application using Gradle without integration tests
-RUN gradle build -x test
+RUN gradle clean build -x test
 
 # Set the working directory
 WORKDIR /usr/local/tomcat/webapps
