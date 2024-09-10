@@ -111,7 +111,7 @@ pipeline {
                                  string(credentialsId: 'mongo_init_root_username', variable: 'MONGO_INITDB_ROOT_USERNAME'),
                                  string(credentialsId: 'mongo_init_root_password', variable: 'MONGO_INITDB_ROOT_PASSWORD'),
                                  string(credentialsId: 'react_apibase_url', variable: 'REACT_APP_API_BASE_URL')]) {
-                       sh 'docker compose -f docker-compose.yml up -d --build'
+                       sh 'docker compose -f docker-compose.yaml up -d --build'
                     }
                 }
             }
