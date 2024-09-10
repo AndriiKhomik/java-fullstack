@@ -110,7 +110,7 @@ pipeline {
                                  string(credentialsId: 'postgres_password', variable: 'POSTGRES_PASSWORD'),
                                  string(credentialsId: 'mongo_init_root_username', variable: 'MONGO_INITDB_ROOT_USERNAME'),
                                  string(credentialsId: 'mongo_init_root_password', variable: 'MONGO_INITDB_ROOT_PASSWORD'),
-                                 string(credentialsId: 'react_app_api_base_url', variable: 'REACT_APP_API_BASE_URL')]) {
+                                 string(credentialsId: 'react_apibase_url', variable: 'REACT_APP_API_BASE_URL')]) {
                        sh 'docker compose -f docker-compose.yml up -d --build'
                     }
                 }
