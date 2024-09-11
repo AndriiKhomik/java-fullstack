@@ -2,7 +2,9 @@
 
 set -e
 
-sleep 3
+echo "Starting entry_point.sh script..."
+
+sleep 10
 
 source variables.sh
 
