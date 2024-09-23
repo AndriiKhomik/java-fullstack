@@ -34,20 +34,20 @@ pipeline {
                 checkout scm
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         // Test application
-        //         echo 'Testing...'
-        //         // This line is commented out because test fails - 346 tests completed, 186 failed, 9 skipped
-        //         sh 'gradle test --stacktrace'
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                // Test application
+                echo 'Testing...'
+                // This line is commented out because test fails - 346 tests completed, 186 failed, 9 skipped
+                // sh 'gradle test --stacktrace'
+            }
+        }
         stage('Build Backend') {
             steps {
                 // Run build
                 echo 'Building the application...'
                 sh 'gradle build -x test'
-                // sh 'gradle build -x test -x jacocoTestCoverageVerification'
+
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
                         def backaendImage = docker.build("${DOCKER_IMAGE_NAME}:backend-${BUILD_NUMBER}")
@@ -82,6 +82,7 @@ pipeline {
                 echo 'Cleaning up old containers and images...'
                 sh 'docker compose down'
                 sh 'docker system prune -f'
+                sh 'docker rmi -f $(docker images -aq)'
             }
         }
         stage('Deploy') {
