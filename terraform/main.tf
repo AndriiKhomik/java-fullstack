@@ -11,15 +11,22 @@ provider "docker" {
 
 }
 
+resource "docker_network" "network" {
+  name = "my_network"
+}
+
 
 resource "docker_image" "nginx" {
-  name         = "nginx:latest"
-  keep_locally = false
+  name = "nginx_image"
+  build {
+    context    = "../nginx/"
+    dockerfile = "Dockerfile"
+  }
 }
 
 resource "docker_container" "nginx" {
   name  = "Andrii"
-  image = docker_image.nginx.image_id
+  image = docker_network.network
   ports {
     internal = 80
     external = 8080
