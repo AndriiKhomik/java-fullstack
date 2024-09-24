@@ -16,19 +16,39 @@ resource "docker_network" "network" {
 }
 
 
-resource "docker_image" "nginx" {
-  name = "nginx_image"
+# resource "docker_image" "nginx" {
+#   name = "nginx_image"
+#   build {
+#     path       = "../nginx/"
+#     dockerfile = "Dockerfile"
+#   }
+# }
+
+# resource "docker_container" "nginx" {
+#   name  = "nginx"
+#   image = docker_image.nginx.image_id
+#   ports {
+#     internal = 80
+#     external = 8080
+#   }
+# }
+
+resource "docker_image" "frontend" {
+  name = "frontend_image"
   build {
-    path       = "../nginx/"
+    path       = "../frontend/"
     dockerfile = "Dockerfile"
   }
 }
 
-resource "docker_container" "nginx" {
-  name  = "nginx"
-  image = docker_image.nginx.image_id
+resource "docker_container" "frontend" {
+  name  = "frontend"
+  image = docker_image.frontend.image_id
   ports {
-    internal = 80
-    external = 8080
+    internal = 3000
+    external = 3000
+  }
+  networks_advanced {
+    name = docker_network.network
   }
 }
