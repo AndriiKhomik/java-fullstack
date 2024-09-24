@@ -49,6 +49,6 @@ resource "docker_container" "frontend" {
     external = 3000
   }
   networks_advanced {
-    name = docker_network.network
+    name = docker_network.network.name
   }
 }
