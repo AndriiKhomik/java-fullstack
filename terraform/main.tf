@@ -19,7 +19,7 @@ resource "docker_network" "network" {
 resource "docker_image" "nginx" {
   name = "nginx_image"
   build {
-    context    = "../nginx/"
+    path       = "../nginx/"
     dockerfile = "Dockerfile"
   }
 }
