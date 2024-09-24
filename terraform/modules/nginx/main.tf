@@ -1,20 +1,13 @@
-resource "docker_image" "nginx_image" {
-  name = "nginx_image"
-  build {
-    context    = "../../../nginx/"
-    dockerfile = "Dockerfile"
-  }
+resource "docker_image" "nginx" {
+  name         = "nginx:latest"
+  keep_locally = false
 }
 
-
-resource "docker_container" "nginx_container" {
-  name  = "nginx"
-  image = docker_image.nginx_image.image_id
-  networks_advanced {
-    name = var.network.network
-  }
+resource "docker_container" "nginx" {
+  name  = "Andrii"
+  image = docker_image.nginx.image_id
   ports {
     internal = 80
-    external = 80
+    external = 8080
   }
 }
