@@ -134,13 +134,6 @@ resource "docker_container" "postgres" {
   }
 }
 
-resource "postgresql_database" "db" {
-  name  = var.postgres_db
-  owner = var.postgres_user
-
-  depends_on = [docker_container.postgres]
-}
-
 resource "docker_image" "redis" {
   name         = "redis:latest"
   keep_locally = true
