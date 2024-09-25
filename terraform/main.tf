@@ -16,7 +16,7 @@ provider "docker" {
 }
 
 provider "postgresql" {
-  host     = docker_container.postgres
+  host     = "postgres"
   port     = var.postgres_port_external
   username = var.postgres_user
   password = var.postgres_password
