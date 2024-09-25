@@ -22,6 +22,11 @@ provider "postgresql" {
   database = var.postgres_db
 }
 
+resource "postgresql_database" "db" {
+  name  = var.postgres_db
+  owner = var.postgres_user
+}
+
 resource "docker_network" "network" {
   name = "my_network"
 }
