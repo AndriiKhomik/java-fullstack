@@ -121,13 +121,6 @@ resource "docker_container" "postgres" {
     host_path      = abspath(docker_volume.postgres_data.name)
     container_path = "/var/lib/postgresql/data"
   }
-
-  healthcheck {
-    test     = ["CMD", "pg_isready", "-U", var.postgres_user]
-    interval = 10
-    timeout  = 5
-    retries  = 5
-  }
 }
 
 resource "docker_image" "redis" {
