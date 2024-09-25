@@ -45,7 +45,7 @@ RUN chmod +x entry_point.sh
 RUN chmod +x variables.sh
 
 # Make pgsql_restore.sh executable
-RUN chmod +x scripts/pgsql_restore.sh
+RUN chmod +x ../scripts/pgsql_restore.sh
 
 # Build the application using Gradle without integration tests
 RUN gradle clean build -x test
