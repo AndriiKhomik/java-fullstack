@@ -76,10 +76,10 @@ resource "docker_container" "backend" {
     external = 800
   }
 
-  env = {
-    MONGO_LOCAL_CURRENT_DATABASE = var.mongodb_local_current_database
-    DEFAULT_SERVER_CLUSTER       = var.default_server_cluster
-  }
+  env = [
+    "MONGO_LOCAL_CURRENT_DATABASE = ${var.mongodb_local_current_database}",
+    "DEFAULT_SERVER_CLUSTER       = ${var.default_server_cluster}"
+  ]
 
   networks_advanced {
     name = docker_network.network.name
@@ -98,11 +98,11 @@ resource "docker_container" "postgres" {
   image   = docker_image.postgres.image_id
   restart = "always"
 
-  env = {
-    POSTGRES_USER     = var.postgres_user
-    POSTGRES_PASSWORD = var.postgres_password
-    POSTGRES_DB       = var.postgres_db
-  }
+  env = [
+    "POSTGRES_USER     = ${var.postgres_user}",
+    "POSTGRES_PASSWORD = ${var.postgres_password}",
+    "POSTGRES_DB       = ${var.postgres_db}"
+  ]
 
   networks_advanced {
     name = docker_network.network.name
@@ -154,10 +154,10 @@ resource "docker_container" "mongodb" {
   image   = docker_image.mongodb.image_id
   restart = "always"
 
-  env = {
-    MONGO_INITDB_ROOT_USERNAME = var.mongo_initdb_root_username
-    POSTGRES_PASSWORD          = var.mongo_initdb_root_password
-  }
+  env = [
+    "MONGO_INITDB_ROOT_USERNAME = ${var.mongo_initdb_root_username}",
+    "POSTGRES_PASSWORD          = ${var.mongo_initdb_root_password}"
+  ]
 
   networks_advanced {
     name = docker_network.network.name
