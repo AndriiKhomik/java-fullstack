@@ -91,6 +91,13 @@ resource "docker_container" "backend" {
   depends_on = [docker_container.postgres, docker_container.redis, docker_container.mongodb]
 }
 
+provider "postgresql" {
+  port     = var.postgres_port_external
+  username = var.postgres_user
+  password = var.postgres_password
+  database = var.postgres_db
+}
+
 resource "docker_image" "postgres" {
   name         = "postgres:15"
   keep_locally = true
