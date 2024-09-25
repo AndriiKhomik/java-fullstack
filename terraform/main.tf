@@ -138,10 +138,10 @@ resource "docker_container" "redis" {
     external = var.redis_port_external
   }
 
-  # volumes {
-  #   host_path      = docker_volume.redis_data.name
-  #   container_path = "/data"
-  # }
+  volumes {
+    host_path      = abspath(docker_volume.redis_data.name)
+    container_path = "/data"
+  }
 }
 
 resource "docker_image" "mongodb" {
@@ -168,10 +168,10 @@ resource "docker_container" "mongodb" {
     external = var.mongodb_port_external
   }
 
-  # volumes {
-  #   host_path      = docker_volume.mongodb_data.name
-  #   container_path = "/data/db"
-  # }
+  volumes {
+    host_path      = abspath(docker_volume.mongodb_data.name)
+    container_path = "/data/db"
+  }
 }
 
 resource "docker_volume" "postgres_data" {
