@@ -16,7 +16,7 @@ provider "docker" {
 }
 
 provider "postgresql" {
-  host     = "postgres"
+  host     = docker_container.postgres
   port     = var.postgres_port_external
   username = var.postgres_user
   password = var.postgres_password
@@ -26,15 +26,6 @@ provider "postgresql" {
 resource "docker_network" "network" {
   name = "my_network"
 }
-
-resource "postgresql_database" "db" {
-  name  = var.postgres_db
-  owner = var.postgres_user
-
-  depends_on = [docker_container.postgres]
-}
-
-
 
 resource "docker_image" "nginx" {
   name = "nginx_image"
@@ -141,6 +132,13 @@ resource "docker_container" "postgres" {
     host_path      = abspath(docker_volume.postgres_data.name)
     container_path = "/var/lib/postgresql/data"
   }
+}
+
+resource "postgresql_database" "db" {
+  name  = var.postgres_db
+  owner = var.postgres_user
+
+  depends_on = [docker_container.postgres]
 }
 
 resource "docker_image" "redis" {
