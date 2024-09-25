@@ -78,7 +78,10 @@ resource "docker_container" "backend" {
 
   env = [
     "MONGO_LOCAL_CURRENT_DATABASE = ${var.mongodb_local_current_database}",
-    "DEFAULT_SERVER_CLUSTER       = ${var.default_server_cluster}"
+    "DEFAULT_SERVER_CLUSTER       = ${var.default_server_cluster}",
+    "POSTGRES_USER     = ${var.postgres_user}",
+    "POSTGRES_PASSWORD = ${var.postgres_password}",
+    "POSTGRES_DB       = ${var.postgres_db}"
   ]
 
   networks_advanced {
@@ -117,6 +120,13 @@ resource "docker_container" "postgres" {
   volumes {
     host_path      = abspath(docker_volume.postgres_data.name)
     container_path = "/var/lib/postgresql/data"
+  }
+
+  healthcheck {
+    test     = ["CMD", "pg_isready", "-U", var.postgres_user]
+    interval = 10
+    timeout  = 5
+    retries  = 5
   }
 }
 
