@@ -29,7 +29,7 @@ resource "docker_container" "nginx" {
   image = docker_image.nginx.image_id
   ports {
     internal = 80
-    external = 8080
+    external = 80
   }
   networks_advanced {
     name = docker_network.network.name
@@ -73,7 +73,7 @@ resource "docker_container" "backend" {
   image = docker_image.backend.image_id
   ports {
     internal = 8080
-    external = 800
+    external = 8080
   }
 
   env = [
