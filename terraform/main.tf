@@ -101,7 +101,8 @@ resource "docker_container" "postgres" {
   env = [
     "POSTGRES_USER     = ${var.postgres_user}",
     "POSTGRES_PASSWORD = ${var.postgres_password}",
-    "POSTGRES_DB       = ${var.postgres_db}"
+    "POSTGRES_DB       = ${var.postgres_db}",
+    "POSTGRES_HOST_AUTH_METHOD=trust"
   ]
 
   networks_advanced {
