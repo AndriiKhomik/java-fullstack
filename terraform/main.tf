@@ -189,6 +189,13 @@ resource "docker_container" "mongodb" {
   }
 }
 
+resource "postgresql_database" "db" {
+  name  = var.postgres_db
+  owner = var.postgres_user
+
+  depends_on = [docker_container.postgres]
+}
+
 resource "docker_volume" "postgres_data" {
   name = "postgres_data"
 }
