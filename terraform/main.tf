@@ -63,7 +63,7 @@ resource "docker_container" "frontend" {
 resource "docker_image" "backend" {
   name = "backend_image"
   build {
-    path       = "../"
+    path       = ".."
     dockerfile = "Dockerfile"
   }
 }
