@@ -114,7 +114,7 @@ resource "docker_container" "postgres" {
   }
 
   volumes {
-    host_path      = "postgres_data"
+    host_path      = docker_volume.postgres_data.name
     container_path = "/var/lib/postgresql/data"
   }
 }
@@ -139,7 +139,7 @@ resource "docker_container" "redis" {
   }
 
   volumes {
-    host_path      = "redis_data"
+    host_path      = docker_volume.redis_data.name
     container_path = "/data"
   }
 }
@@ -169,7 +169,7 @@ resource "docker_container" "mongodb" {
   }
 
   volumes {
-    host_path      = "mongodb_data"
+    host_path      = docker_volume.mongodb_data.name
     container_path = "/data/db"
   }
 }
