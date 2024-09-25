@@ -46,8 +46,10 @@ resource "docker_image" "frontend" {
 }
 
 resource "docker_container" "frontend" {
-  name  = "frontend"
-  image = docker_image.frontend.image_id
+  name    = "frontend"
+  image   = docker_image.frontend.image_id
+  restart = "always"
+
   ports {
     internal = 3000
     external = 3000
@@ -74,7 +76,7 @@ resource "docker_container" "backend" {
     external = 800
   }
 
-  environment = {
+  env = {
     MONGO_LOCAL_CURRENT_DATABASE = var.mongodb_local_current_database
     DEFAULT_SERVER_CLUSTER       = var.default_server_cluster
   }
@@ -92,9 +94,11 @@ resource "docker_image" "postgres" {
 }
 
 resource "docker_container" "postgres" {
-  name  = "postgres"
-  image = docker_image.postgres.image_id
-  environment = {
+  name    = "postgres"
+  image   = docker_image.postgres.image_id
+  restart = "always"
+
+  env = {
     POSTGRES_USER     = var.postgres_user
     POSTGRES_PASSWORD = var.postgres_password
     POSTGRES_DB       = var.postgres_db
@@ -121,8 +125,9 @@ resource "docker_image" "redis" {
 }
 
 resource "docker_container" "redis" {
-  name  = "redis"
-  image = docker_image.redis.image_id
+  name    = "redis"
+  image   = docker_image.redis.image_id
+  restart = "always"
 
   networks_advanced {
     name = docker_network.network.name
@@ -145,10 +150,11 @@ resource "docker_image" "mongodb" {
 }
 
 resource "docker_container" "mongodb" {
-  name  = "mongodb"
-  image = docker_image.mongodb.image_id
+  name    = "mongodb"
+  image   = docker_image.mongodb.image_id
+  restart = "always"
 
-  environment = {
+  env = {
     MONGO_INITDB_ROOT_USERNAME = var.mongo_initdb_root_username
     POSTGRES_PASSWORD          = var.mongo_initdb_root_password
   }
