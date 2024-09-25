@@ -19,7 +19,7 @@ resource "docker_network" "network" {
 resource "docker_image" "nginx" {
   name = "nginx_image"
   build {
-    path       = "../nginx/"
+    path       = "../app/nginx/"
     dockerfile = "Dockerfile"
   }
 }
@@ -40,7 +40,7 @@ resource "docker_container" "nginx" {
 resource "docker_image" "frontend" {
   name = "frontend_image"
   build {
-    path       = "../frontend/"
+    path       = "../app/frontend/"
     dockerfile = "Dockerfile"
   }
 }
@@ -63,7 +63,7 @@ resource "docker_container" "frontend" {
 resource "docker_image" "backend" {
   name = "backend_image"
   build {
-    path       = "../backend/"
+    path       = "../app/"
     dockerfile = "Dockerfile"
   }
 }
