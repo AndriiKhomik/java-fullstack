@@ -16,20 +16,24 @@ provider "docker" {
 }
 
 provider "postgresql" {
+  host     = "postgres"
   port     = var.postgres_port_external
   username = var.postgres_user
   password = var.postgres_password
   database = var.postgres_db
 }
 
-resource "postgresql_database" "db" {
-  name  = var.postgres_db
-  owner = var.postgres_user
-}
-
 resource "docker_network" "network" {
   name = "my_network"
 }
+
+resource "postgresql_database" "db" {
+  name  = var.postgres_db
+  owner = var.postgres_user
+
+  depends_on = [docker_container.postgres]
+}
+
 
 
 resource "docker_image" "nginx" {
