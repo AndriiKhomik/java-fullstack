@@ -138,10 +138,9 @@ resource "docker_container" "redis" {
     external = var.redis_port_external
   }
 
-  volumes {
-    volume_name = "redis_data"
-    destination = "/data"
-  }
+  volumes = [
+    "${docker_volume.redis_data.name}:/data"
+  ]
 }
 
 resource "docker_image" "mongodb" {
@@ -156,7 +155,7 @@ resource "docker_container" "mongodb" {
 
   env = [
     "MONGO_INITDB_ROOT_USERNAME = ${var.mongo_initdb_root_username}",
-    "POSTGRES_PASSWORD          = ${var.mongo_initdb_root_password}"
+    "MONGO_INITDB_ROOT_PASSWORD = ${var.mongo_initdb_root_password}"
   ]
 
   networks_advanced {
@@ -168,10 +167,9 @@ resource "docker_container" "mongodb" {
     external = var.mongodb_port_external
   }
 
-  volumes {
-    volume_name = "mongodb_data"
-    destination = "/data/db"
-  }
+  volumes = [
+    "${docker_volume.mongodb_data.name}:/data/db"
+  ]
 }
 
 resource "docker_volume" "postgres_data" {
