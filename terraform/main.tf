@@ -114,8 +114,8 @@ resource "docker_container" "postgres" {
   }
 
   volumes {
-    volume_name = "postgres_data"
-    destination = "/var/lib/postgresql/data"
+    host_path      = "postgres_data"
+    container_path = "/var/lib/postgresql/data"
   }
 }
 
@@ -138,9 +138,10 @@ resource "docker_container" "redis" {
     external = var.redis_port_external
   }
 
-  volumes = [
-    "${docker_volume.redis_data.name}:/data"
-  ]
+  volumes {
+    host_path      = "redis_data"
+    container_path = "/data"
+  }
 }
 
 resource "docker_image" "mongodb" {
@@ -167,9 +168,10 @@ resource "docker_container" "mongodb" {
     external = var.mongodb_port_external
   }
 
-  volumes = [
-    "${docker_volume.mongodb_data.name}:/data/db"
-  ]
+  volumes {
+    host_path      = "mongodb_data"
+    container_path = "/data/db"
+  }
 }
 
 resource "docker_volume" "postgres_data" {
