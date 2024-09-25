@@ -13,7 +13,7 @@ pathB=/app/
 #write this on the command line as the first parameter
 filename=data.dump
 #write your user
-dbUser=user
+dbUser=postgres
 #write your database
 database=postgres_db
 #write your host
