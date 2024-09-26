@@ -4,24 +4,12 @@ terraform {
       source  = "kreuzwerker/docker"
       version = "~> 2.23.0"
     }
-    # postgresql = {
-    #   source  = "cyrilgdn/postgresql"
-    #   version = "~> 1.23.0"
-    # }
   }
 }
 
 provider "docker" {
 
 }
-
-# provider "postgresql" {
-#   host     = "postgres"
-#   port     = var.postgres_port_external
-#   username = var.postgres_user
-#   password = var.postgres_password
-#   database = var.postgres_db
-# }
 
 resource "docker_network" "network" {
   name = "my_network"
