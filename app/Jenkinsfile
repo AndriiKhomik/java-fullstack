@@ -9,7 +9,7 @@ pipeline {
         POSTGRES_USER = credentials('postgres_user')
         POSTGRES_PASSWORD = credentials('postgres_password')
         POSTGRES_DB = credentials('postgres_db')
-        MONGO_INITDB_ROOT_USERNAME = credentials('	mongo_init_root_username')
+        MONGO_INITDB_ROOT_USERNAME = credentials('mongo_init_root_username')
         MONGO_INITDB_ROOT_PASSWORD = credentials('mongo_init_root_password')
         REACT_APP_API_BASE_URL = credentials('react_apibase_url')
     }
